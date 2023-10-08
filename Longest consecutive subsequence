@@ -1,0 +1,29 @@
+class Solution{
+  public:
+    // arr[] : the input array
+    // N : size of the array arr[]
+    
+    //Function to return length of longest subsequence of consecutive integers.
+    int findLongestConseqSubseq(int arr[], int N)
+    {
+      //Your code here
+      set<int>s;
+      for(int i=0;i<N;i++){
+          s.insert(arr[i]);
+      }
+      int ans=1;
+      for(int i=0;i<N;i++){
+          int y=arr[i];
+          if(s.find(y-1)!=s.end()){continue;}
+          else{
+              int j=arr[i];
+              while(s.find(j)!=s.end()){
+                  j++;
+              }
+              ans=max(ans,j-y);
+              
+          }
+      }
+      return ans; 
+    }
+};
