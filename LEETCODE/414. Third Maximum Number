@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        sort(nums.begin(),nums.end(),greater<int>());
+        vector<int>v(3,0);
+        v[0]=nums[0];
+        int x=1;
+        for(int i=1;i<nums.size();i++){
+            if(nums[i]!=nums[i-1]){
+                if(x==2) return nums[i];
+                v[x++]=nums[i];
+            }
+        }
+        for(auto it:v) cout<<it<<" ";
+        return nums[0];
+    }
+};
