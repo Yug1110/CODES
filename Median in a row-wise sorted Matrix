@@ -1,0 +1,54 @@
+//User function template for C++
+
+class Solution{   
+public:
+int kthSmallest(vector<vector<int>> &mat, int n, int C, int k)
+{
+  //Your code here
+  int lo=1;
+  int hi=10001;
+  int ans=-1;
+  while(lo<=hi){
+      int mid=(lo+hi)/2;
+      int ele=0;
+      for(int i=0;i<n;i++){
+          ele+=upper_bound(mat[i].begin(),mat[i].end(),mid)-mat[i].begin();
+      }
+    //   if(ele==k) return mid;
+      if(ele<k) lo=mid+1;
+      else{
+          ans=mid;
+          hi=mid-1;
+      }
+  }
+  return ans;
+}
+
+    int median(vector<vector<int>> &matrix, int R, int C){
+        // code here  
+        int lo=1e9;
+        int hi=-1e9;
+        for(int i=0;i<R;i++){
+            lo=min(lo,matrix[i][0]);
+            hi=max(hi,matrix[i][C-1]);
+        }
+        int total=(R*C+1)/2;
+        int ans=kthSmallest(matrix,R,C,total);
+        return ans;
+        
+        while(lo<hi){
+            int mid=(lo+hi)/2;
+            int ele=0;
+            for(int i=0;i<R;i++){
+                vector<int>v=matrix[i];
+                int x=upper_bound(v.begin(),v.end(),mid)-v.begin();
+                ele+=x;
+                // if(mid==x) ele--;
+            }
+            // cout<<mid<<" "<<ele<<endl;
+            if(ele<total) lo=mid+1;
+            else hi=mid;
+        }
+        return lo;
+    }
+};
