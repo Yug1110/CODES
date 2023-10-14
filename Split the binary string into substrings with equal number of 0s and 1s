@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int maxSubStr(string str){
+        //Write your code here
+        int zero=0,one=0;
+        int ans=0;
+        for(int i=0;i<str.length();i++){
+            if(str[i]=='0') zero++;
+            else one++;
+            
+            if(zero==one) ans++;
+        }
+        if(zero!=one) return -1;
+        return ans;
+    }
+};
