@@ -1,0 +1,37 @@
+//User function template for C++
+
+class Solution
+{
+  public:
+    string lookandsay(int n) {
+        // code here
+        if (n==1){
+            return "1";
+        }
+        
+        string ref="1";
+        
+        for(int i=1;i<n;i++){
+            int j=1;
+            int cnt=1;
+            char c=ref[0];
+            string ans="";
+            while(true){
+                while(j<ref.length() && ref[j]==c){
+                    cnt++;
+                    j++;
+                }
+                ans=ans+to_string(cnt)+c;
+                cnt=0;
+                if(j>=ref.length()) break;
+                c=ref[j];
+            }
+            // cout<<ans<<endl;
+            ref=ans;
+        }
+        return ref;
+    }   
+};
+
+
+// ref -> 1
