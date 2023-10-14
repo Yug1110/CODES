@@ -1,0 +1,26 @@
+class Solution
+{
+    public:
+    //Function to search a given number in row-column sorted matrix.
+    bool searching(vector<vector<int>>&matrix,int row,int n,int m ,int x){
+        int lo=0,hi=m-1;
+        while(lo<=hi){
+            int mid=(lo+hi)/2;
+            if(matrix[row][mid]==x) return true;
+            else if(matrix[row][mid]<x) lo=mid+1;
+            else hi=mid-1;
+        }
+        return false;
+    }
+    bool search(vector<vector<int> > matrix, int n, int m, int x) 
+    {
+        // code here 
+        int row=-1;
+        for(int i=0;i<n;i++){
+            if(matrix[i][m-1]>=x && matrix[i][0]<=x){
+                if(searching(matrix,i,n,m,x)) return true;
+            }
+        }
+        return false;
+    }
+};
