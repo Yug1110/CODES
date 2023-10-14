@@ -1,0 +1,29 @@
+class Solution
+{
+	public:
+	    void solve(string s,int ind,unordered_set<string>&ans){
+	        if(ind>=s.length()){
+	            ans.insert(s);
+	            return;
+	        }
+	        for(int i=ind;i<s.length();i++){
+	            swap(s[i],s[ind]);
+	            solve(s,ind+1,ans);
+	            swap(s[i],s[ind]);
+	        }
+	        return;
+	        
+	    }
+	
+		vector<string>find_permutation(string S)
+		{
+		    // Code here there
+		    unordered_set<string>ans;
+		    solve(S,0,ans);
+		    vector<string>res;
+		    for(auto it:ans){
+		        res.push_back(it);
+		    }
+		    return res;
+		}
+};
