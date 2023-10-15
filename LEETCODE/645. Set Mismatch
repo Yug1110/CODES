@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        set<int>s;
+        int re,mi;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            if(s.find(nums[i])!=s.end()){
+                re=nums[i];
+            }
+            s.insert(nums[i]);
+        }
+        for(int i=1;i<=n;i++){
+            if(s.find(i)==s.end()){
+                mi=i;
+                break;
+            }
+        }
+        return {re,mi};
+    }
+};
+
+
