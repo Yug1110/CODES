@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int solve(int row,int col ,vector<vector<int>>&img){
+        int tot=0,sum=0;
+        // sum+=img[row][col];
+        // tot++;
+        vector<int>d={-1,0,1};
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                int nrow=row-d[i],ncol=col-d[j];
+                if(nrow>=0 && ncol>=0 && nrow<img.size() && ncol<img[0].size()){
+                    sum+=img[nrow][ncol];
+                    tot++;
+                }
+            }
+        }
+        return sum/tot;
+    }
+    vector<vector<int>> imageSmoother(vector<vector<int>>& img) {
+        int n=img.size();
+        int m=img[0].size();
+        vector<vector<int>>ans(n,vector<int>(m,0));
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                ans[i][j]=solve(i,j,img);
+            }
+        }
+        return ans;
+        
+    }
+};
