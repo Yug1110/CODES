@@ -1,0 +1,33 @@
+//User function template for C++
+
+class Solution{
+  public:
+    
+    string longestCommonPrefix (string arr[], int N)
+    {
+        // your code here
+        string ans="";
+        int x=0;
+        while(true){
+            if(arr[0].length()<=x){
+                if(ans.length()==0){
+                    ans="-1";
+                }
+                return ans;
+            }
+            char curr=arr[0][x];
+            for(int i=1;i<N;i++){
+                if(arr[i].length()<=x || arr[i][x]!=curr){
+                    if(ans.length()==0){
+                    ans="-1";
+                }
+                return ans;
+                }
+            }
+            ans=ans+curr;
+            x++;
+            
+        }
+        return ans;
+    }
+};
