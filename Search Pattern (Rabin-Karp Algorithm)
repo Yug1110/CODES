@@ -1,0 +1,22 @@
+class Solution
+{
+    public:
+        vector <int> search(string pat, string txt)
+        {
+            //code here.
+            vector<int>ans;
+            int n=txt.length();
+            int m=pat.length();
+            for(int i=0;i<=n-m;i++){
+                if(txt.substr(i,m)==pat){
+                    ans.push_back(i+1);
+                }
+            }
+            if(ans.size()==0){
+                return {-1};
+            }
+            return ans;
+            
+        }
+     
+};
