@@ -1,0 +1,31 @@
+class Solution {
+  public:
+    int solve(string s,string t,int i,int j,vector<vector<int>>&dp){
+        if(i>=s.length()){
+            return t.length()-j;
+        }
+        else if(j>=t.length()){
+            return s.length()-i;
+        }
+        
+        else if(s[i]==t[j]){
+            return solve(s,t,i+1,j+1,dp);
+        }
+        
+        else if(dp[i][j]!=-1) return dp[i][j];
+        
+        int insert=1+solve(s,t,i,j+1,dp);
+        int rem=1+solve(s,t,i+1,j,dp);
+        int replace=1+solve(s,t,i+1,j+1,dp);
+        
+        return dp[i][j]=min(insert,min(rem,replace));
+    }
+  
+    int editDistance(string s, string t) {
+        // Code here
+        int n=s.length();
+        int m=t.length();
+        vector<vector<int>>dp(n,vector<int>(m,-1));
+        return solve(s,t,0,0,dp);
+    }
+};
