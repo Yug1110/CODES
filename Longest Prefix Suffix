@@ -1,0 +1,21 @@
+class Solution{
+  public:		
+	int lps(string s) {
+	    // Your code goes here
+	    string pre="";
+	    string suff="";
+	    int i=0;
+	    int j=s.length()-1;
+	    int ans=0;
+	    while(i<s.length()-1){
+	        pre=pre+s[i];
+	        suff=s[j]+suff;
+	        if(pre==suff){
+	            ans=max(ans,i+1);
+	        }
+	        i++;
+	        j--;
+	    }
+	    return ans;
+	}
+};
