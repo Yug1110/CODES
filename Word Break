@@ -1,0 +1,28 @@
+class Solution
+{
+public:
+    bool solve(string A,int ind, int n,unordered_map<string,bool>mp){
+        if(ind>=n) return true;
+        
+        for(int i=ind;i<n;i++){
+            if(mp.find(A.substr(ind,i-ind+1))!=mp.end()){
+                if(solve(A,i+1,n,mp)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    int wordBreak(string A, vector<string> &B) {
+        //code here
+        unordered_map<string,bool>mp;
+        for(int i=0;i<B.size();i++){
+            mp[B[i]]=true;
+        }
+        
+        int n=A.size();
+        return solve(A,0,n,mp);
+        
+    }
+};
