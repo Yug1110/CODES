@@ -1,0 +1,55 @@
+//User function Template for C++
+
+class Solution {
+public:
+    int solve(vector<int>&nums, int k, int ind, int n,int left,vector<vector<int>>&dp){
+        
+        if(left>=0 && left<=k){
+            if(dp[ind][left]!=-1) return dp[ind][left];
+        }
+        //last index is a special case
+        if(ind==n-1){
+            if(nums[ind]<=left){
+                return 0;
+            }
+            else{
+                return (left+1)*(left+1);
+            }
+            
+        }
+        
+        if(left==k){
+            return dp[ind][left]=solve(nums,k,ind+1,n,left-nums[ind]-1,dp);
+        }
+        
+        int same,next;
+        if(nums[ind]<=left){
+            //for same
+            if(left-nums[ind]-1==0){
+                same=solve(nums,k,ind+1,n,left-nums[ind]-1,dp);
+            }
+            else if(left-nums[ind]-1==-1){
+                same=solve(nums,k,ind+1,n,k,dp);
+            }
+            else{
+                same=solve(nums,k,ind+1,n,left-nums[ind]-1,dp);
+            }
+            
+            next=solve(nums,k,ind+1,n,k-nums[ind]-1,dp) +(left+1)*(left+1);;
+            
+            return dp[ind][left]=min(same,next);
+        }
+        else{
+            next=solve(nums,k,ind+1,n,k-nums[ind]-1,dp)+(left+1)*(left+1);
+            return dp[ind][left]=next;
+        }
+        
+    }
+    int solveWordWrap(vector<int>nums, int k) 
+    { 
+        // Code here
+        int n=nums.size();
+        vector<vector<int>>dp(n,vector<int>(k+1,-1));
+        return solve(nums,k,0,n,k,dp);
+    } 
+};
