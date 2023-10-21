@@ -1,0 +1,84 @@
+class Solution{
+  public:
+  void previous(int arr[],int n, int prev[]){
+        stack<int>st;
+        st.push(n-1);
+        int i=n-2;
+        while(i>=0){
+            while(!st.empty() && arr[st.top()]>arr[i]){
+                prev[st.top()]=i;
+                st.pop();
+            }
+            st.push(i);
+            i--;
+        }
+        
+    }
+    
+    void nex(int arr[],int n, int next[]){
+        stack<int>st;
+        st.push(0);
+        int i=1;
+        while(i<n){
+            while(!st.empty() && arr[st.top()]>arr[i]){
+                next[st.top()]=i;
+                st.pop();
+            }
+            st.push(i);
+            i++;
+        }
+        
+    }
+    int getMaxArea(int arr[], int n)
+    {
+        // Your code here
+        int ans=-1e9;
+        
+        int prev[n];
+        int next[n];
+        for(int i=0;i<n;i++){
+            prev[i]=-1;
+            next[i]=-1;
+        }
+        
+        // finding prev smaller
+        previous(arr,n,prev);
+        
+        //finding next smaller
+        nex(arr,n,next);
+        
+        // finding ans
+        for(int i=0;i<n;i++){
+            int p=prev[i],ne=next[i];
+            
+            if(ne==-1){
+                ne=n;
+            }
+            ans=max(ans, arr[i]*(ne-p-1));
+        }
+        return ans;
+    }
+    int maxArea(int mat[MAX][MAX], int n, int m) {
+        // Your code here
+        int ans=-1e9;
+        int arr[m];
+        for(int i=0;i<m;i++){
+            arr[i]=0;
+        }
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==0){
+                    arr[j]=0;
+                }
+                else{
+                    arr[j]++;
+                }
+            }
+            ans=max(ans,getMaxArea(arr,m));
+        }
+        
+        return ans;
+    }
+    
+};
