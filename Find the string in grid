@@ -1,0 +1,137 @@
+
+
+class Solution {
+public:
+    
+        
+    bool func(int row,int col,vector<vector<char>>&grid,int n,int m,string word){
+        //horizontal right
+        int a=0;
+        for(int i=0;i<m;i++){
+            // cout<<grid[row][col+i]<<"";
+            if(col+i<m && grid[row][col+i]==word[i]){
+                a++;
+            }
+            else{
+                break;
+            }
+            if(i==word.length()-1){
+                return true;
+            }
+        }
+        //horizontal left
+        for(int i=0;i<m;i++){
+            if(col-i>=0 && grid[row][col-i]==word[i]){
+                a++;
+            }
+            else{
+                break;
+            }
+            
+            if(i==word.length()-1){
+                return true;
+            }
+        }
+        //vertical down
+        for(int i=0;i<n;i++){
+            if(row+i<n && grid[row+i][col]==word[i]){
+                a++;
+            }
+            else{
+                break;
+            }
+            
+            if(i==word.length()-1){
+                return true;
+            }
+        }
+        //vertical up
+        for(int i=0;i<n;i++){
+            if(row-i>=0 && grid[row-i][col]==word[i]){
+                a++;
+            }
+            else{
+                break;
+            }
+            
+            if(i==word.length()-1){
+                return true;
+            }
+        }
+        
+        //diagonal south-east
+        for(int i=0;i<n;i++){
+            if(row+i<n && col+i<m && grid[row+i][col+i]==word[i]){
+                a++;
+            }
+            else{
+                break;
+            }
+            
+            if(i==word.length()-1){
+                return true;
+            }
+        }
+        //diaogonal north-west
+        for(int i=0;i<n;i++){
+            if(row-i>=0 && col-i>=0 && grid[row-i][col-i]==word[i]){
+                a++;
+            }
+            else{
+                break;
+            }
+            
+            if(i==word.length()-1){
+                return true;
+            }
+        }
+        //diaogonal south-west
+        for(int i=0;i<n;i++){
+            if(row+i<n && col-i>=0 && grid[row+i][col-i]==word[i]){
+                a++;
+            }
+            else{
+                break;
+            }
+            
+            if(i==word.length()-1){
+                return true;
+            }
+        }
+        
+        //diaogonal north-east
+        for(int i=0;i<n;i++){
+            if(row-i>=0 && col+i<m && grid[row-i][col+i]==word[i]){
+                a++;
+            }
+            else{
+                break;
+            }
+            
+            if(i==word.length()-1){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+	vector<vector<int>>searchWord(vector<vector<char>>grid, string word){
+	    // Code here
+	    int n=grid.size();
+	    int m=grid[0].size();
+	    
+	    vector<vector<int>>ans;
+	    
+	    for(int i=0;i<n;i++){
+	        for(int j=0;j<m;j++){
+	            if(grid[i][j]==word[0]){
+	                if(func(i,j,grid,n,m,word)){
+	                    ans.push_back({i,j});
+	                }
+	            }
+	        }
+	    }
+	    return ans;
+	}
+};
