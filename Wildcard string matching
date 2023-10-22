@@ -1,0 +1,39 @@
+// User function template for C++
+class Solution{
+    public:
+    bool solve(string wild, string pattern, int n, int m, int i, int j, vector<vector<int>>&dp){
+        if(i>=n && j>=m) return true;
+        if(i>=n) return false;
+        if(j>=m){
+            for(int x=i;x<n;x++){
+                if(wild[x]!='*') return false;
+            }
+            return true;
+        }
+        
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+        if(wild[i]==pattern[j]){
+            return dp[i][j]=solve(wild,pattern,n,m,i+1,j+1,dp);
+        }
+        else if(wild[i]=='*'){
+            return dp[i][j]=solve(wild,pattern,n,m,i+1,j,dp) || solve(wild,pattern,n,m,i,j+1,dp);
+        }
+        else if(wild[i]=='?'){
+            return dp[i][j]=solve(wild,pattern,n,m,i+1,j+1,dp);
+        }
+        else{
+            return dp[i][j]=false;
+        }
+    }
+    
+    bool match(string wild, string pattern)
+    {
+        // code here
+        int n=wild.length();
+        int m=pattern.length();
+        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        
+        return solve(wild,pattern,n,m,0,0,dp);
+    }
+};
