@@ -1,0 +1,32 @@
+class Solution{   
+public:
+    int minimumNumberOfSwaps(string S){
+        // code here
+        int i=0;
+        int n=S.length();
+        int count=0;
+        int ans=0;
+        while(i<n){
+            if(S[i]=='['){
+                count++;
+            }
+            else{
+                if(count<=0){
+                    //finding nearest open bracket
+                    int j=i+1;
+                    while(S[j]!='['){
+                        j++;
+                    }
+                    ans+=j-i;
+                    swap(S[i],S[j]);
+                    count++;
+                }
+                else{
+                    count--;
+                }
+            }
+            i++;
+        }
+        return ans;
+    }
+};
