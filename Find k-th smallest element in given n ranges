@@ -1,0 +1,65 @@
+
+class Solution{
+    public:
+    vector<vector<int>> overlappedInterval(vector<vector<int>>& intervals) {
+         // Code here
+         sort(intervals.begin(),intervals.end());
+         vector<vector<int>>ans;
+         ans.push_back(intervals[0]);
+         for(int i=1;i<intervals.size();i++){
+             int left1=ans[ans.size()-1][0];
+             int right1=ans[ans.size()-1][1];
+             
+             int left2=intervals[i][0];
+             int right2=intervals[i][1];
+             
+             if(left2<=right1){
+                 int right=max(right1,right2);
+                 ans.pop_back();
+                 ans.push_back({left1,right});
+             }
+             else{
+                 ans.push_back(intervals[i]);
+             }
+             
+         }
+         return ans;
+    }
+    
+    vector<int>kthSmallestNum(int n, vector<vector<int>>&range, int q, vector<int>queries){
+        //Write your code here
+        vector<int>ans;
+        sort(range.begin(),range.end());
+        
+        //overlapping interval;
+        range=overlappedInterval(range);
+        int tot=0;
+        for(int i=0;i<range.size();i++){
+            tot+=range[i][1]-range[i][0]+1;
+        }
+        
+        for(int i=0;i<q;i++){
+            int x=queries[i];
+            if(x>tot){
+                ans.push_back(-1);
+                continue;
+            }
+            for(int i=0;i<range.size();i++){
+                if(x>range[i][1]-range[i][0]+1){
+                    x-=range[i][1]-range[i][0]+1;
+                    continue;
+                }
+                else if(x==range[i][1]-range[i][0]+1){
+                    ans.push_back(range[i][1]);
+                    break;
+                }
+                else{
+                    ans.push_back(range[i][0]+x-1);
+                    break;
+                }
+            }
+        }
+        return ans;
+        
+    } 
+};
