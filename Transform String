@@ -1,0 +1,38 @@
+class Solution
+{
+    public:
+    int transform (string A, string B)
+    {
+        //code here.
+        int n=A.length(),m=B.length();
+        if(n!=m) return -1;
+        unordered_map<char,int>mpA;
+        unordered_map<char,int>mpB;
+        for(int i=0;i<n;i++){
+            mpA[A[i]]++;
+            mpB[B[i]]++;
+        }
+        
+        for(auto it:mpA){
+            if(mpB[it.first]!=it.second){
+                return -1;
+            }
+        }
+        
+        int i=n-1,j=n-1,ans=0;
+        
+        while(i>=0 && j>=0){
+            if(A[i]==B[j]){
+                i--;j--;
+            }
+            else{
+                i--;
+                ans++;
+            }
+        }
+        return ans;
+        
+        
+        
+    }
+};
