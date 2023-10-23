@@ -1,0 +1,49 @@
+//User function Template for C++
+
+class Solution{
+    public:
+    
+    int solve(vector<vector<char>> &mat, int n, int m, int row, int col, string target, int ind,vector<vector<int>>&vis){
+        if(ind==target.length()-1) return 1;
+        
+        int nrow,ncol,ans=0;
+        vis[row][col]=1;
+        
+        nrow=row-1;ncol=col;
+        if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && !vis[nrow][ncol] && mat[nrow][ncol]==target[ind+1]){
+            ans+=solve(mat,n,m,nrow,ncol,target,ind+1,vis);
+        }
+        nrow=row+1;ncol=col;
+        if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && !vis[nrow][ncol] && mat[nrow][ncol]==target[ind+1]){
+            ans+=solve(mat,n,m,nrow,ncol,target,ind+1,vis);
+        }
+        nrow=row;ncol=col-1;
+        if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && !vis[nrow][ncol] && mat[nrow][ncol]==target[ind+1]){
+            ans+=solve(mat,n,m,nrow,ncol,target,ind+1,vis);
+        }
+        nrow=row;ncol=col+1;
+        if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && !vis[nrow][ncol] && mat[nrow][ncol]==target[ind+1]){
+            ans+=solve(mat,n,m,nrow,ncol,target,ind+1,vis);
+        }
+        
+        vis[row][col]=0;
+        
+        return ans;
+    }
+    
+    int findOccurrence(vector<vector<char> > &mat, string target){
+        int n=mat.size();
+        int m=mat[0].size();
+        int ans=0;
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==target[0]){
+                    ans+=solve(mat,n,m,i,j,target,0,vis);
+                }
+            }
+        }
+        return ans;
+    }
+};
