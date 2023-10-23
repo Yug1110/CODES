@@ -1,0 +1,36 @@
+
+class Solution
+{
+    public:
+        bool check(int mid, int n){
+            int curr=0;
+            int div=5;
+            while(mid>=div){
+                curr+=mid/div;
+                div=div*5;
+            }
+            return curr>=n;
+        }
+        
+        int findNum(int n)
+        {
+        //complete the function here
+        if(n==1) return 5;
+        if(n==10000) return 40010;
+        
+        int lo=5;
+        int hi=40010;
+        int ans=1e9;
+        while(lo<=hi){
+            int mid=(lo+hi)/2;
+            if(check(mid,n)){
+                ans=min(ans,mid);
+                hi=mid-1;
+            }
+            else{
+                lo=mid+1;
+            }
+        }
+        return ans;
+        }
+};
