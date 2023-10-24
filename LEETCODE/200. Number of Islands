@@ -1,0 +1,42 @@
+class Solution {
+public:
+    void dfs(vector<vector<char>>&grid, vector<vector<int>>&vis, int n, int m, int row, int col){
+        vis[row][col]=1;
+
+        int nrow,ncol;
+
+        nrow=row-1;ncol=col;
+        if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && grid[nrow][ncol]=='1' && vis[nrow][ncol]==0){
+            dfs(grid,vis,n,m,nrow,ncol);
+        }
+        nrow=row+1;ncol=col;
+        if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && grid[nrow][ncol]=='1' && vis[nrow][ncol]==0){
+            dfs(grid,vis,n,m,nrow,ncol);
+        }
+        nrow=row;ncol=col+1;
+        if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && grid[nrow][ncol]=='1' && vis[nrow][ncol]==0){
+            dfs(grid,vis,n,m,nrow,ncol);
+        }
+        nrow=row;ncol=col-1;
+        if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && grid[nrow][ncol]=='1' && vis[nrow][ncol]==0){
+            dfs(grid,vis,n,m,nrow,ncol);
+        }
+    }
+
+    int numIslands(vector<vector<char>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        int ans=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]=='1' && vis[i][j]==0){
+                    ans++;
+                    dfs(grid,vis,n,m,i,j);
+                }
+            }
+        }
+        return ans;
+    }
+};
