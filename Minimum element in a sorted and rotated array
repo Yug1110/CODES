@@ -1,0 +1,20 @@
+class Solution{
+public:
+    int findMin(int arr[], int n){
+        //complete the function here
+        if(arr[0]<=arr[n-1]){
+            return arr[0];
+        }
+        int lo=0,end=n-1;
+        while(lo<end){
+            int mid=(lo+end)/2;
+            if(arr[mid]>=arr[0]){
+                lo=mid+1;
+            }
+            else{
+                end=mid;
+            }
+        }
+        return arr[lo];
+    }
+};
