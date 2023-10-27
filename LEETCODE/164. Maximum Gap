@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maximumGap(vector<int>& nums) {
+        priority_queue<int>pq;
+        for(int i=0;i<nums.size();i++){
+            pq.push(nums[i]);
+        }
+
+        int ans=0;
+        int start=pq.top();pq.pop();
+        for(int i=0;i<nums.size()-1;i++){
+            int next=pq.top();pq.pop();
+            ans=max(ans,abs(next-start));
+            start=next;
+        }
+        return ans;
+    }
+};
