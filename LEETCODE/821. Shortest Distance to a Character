@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> shortestToChar(string s, char c) {
+        vector<int>ans;
+        vector<int>occur;
+        for(int i=0;i<s.length();i++){
+            if(s[i]==c){
+                occur.push_back(i);
+            }
+        }
+
+        for(int i=0;i<s.length();i++){
+            int a=1e9;
+            for(int j=0;j<occur.size();j++){
+                a=min(a,abs(i-occur[j]));
+            }
+            ans.push_back(a);
+        }
+        return ans;
+    }
+};
