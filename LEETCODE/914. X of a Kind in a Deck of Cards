@@ -1,0 +1,43 @@
+class Solution {
+public:
+
+    int solve(int n){
+        for(int i=2;i<=n;i++){
+            if(n%i==0){
+                return i;
+            }
+        }
+        return n;
+    }
+
+    bool hasGroupsSizeX(vector<int>& deck) {
+
+        unordered_map<int,int>mp;
+        for(int i=0;i<deck.size();i++){
+            mp[deck[i]]++;
+        }
+
+        vector<int>freq;
+
+        for(auto it: mp){
+            if(it.second <=1){
+                return false;
+            }
+            freq.push_back(it.second);
+        }
+
+        for(int i=0;i<freq.size() -1 ;i++){
+            if(__gcd(freq[i],freq[i+1])==1){
+                return false;
+            }
+        }
+        int n=freq.size();
+        if(__gcd(freq[n-1] , freq[0])==1){
+            return false;
+        }
+
+    
+
+        return true;
+    }
+};
