@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> sortArrayByParityII(vector<int>& nums) {
+        int n=nums.size();
+        int i=0,j=1;
+        vector<int>ans(n,0);
+        for(int x=0; x<n; x++){
+            if(nums[x]%2==0){
+                ans[i]=nums[x];
+                i+=2;
+            }
+            else{
+                ans[j]=nums[x];
+                j+=2;
+            }
+        }
+        return ans;
+    }
+};
