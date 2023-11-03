@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> addToArrayForm(vector<int>& num, int k) {
+        reverse(num.begin(), num.end());
+        int carry=k;
+        int i=0;
+        int n=num.size();
+        while(i<n){
+            num[i]=num[i]+carry;
+            carry=num[i]/10;
+            num[i]=num[i]%10;
+            i++;
+        }
+        while(carry!=0){
+            num.push_back(carry%10);
+            carry=carry/10;
+        }
+        reverse(num.begin(),num.end());
+        return num;
+    }
+};
