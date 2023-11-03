@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool isAlienSorted(vector<string>& words, string order) {
+        unordered_map<char,int>mp;
+        for(int i=0;i<order.size();i++){
+            mp[order[i]]=i;
+        }
+
+        //checking order of words
+        int n=words.size();
+        // we are checking pair wise
+        for(int j=0;j<n-1;j++){
+            string a=words[j];
+            string b=words[j+1];
+            int i=0;
+            while(i<a.length() && i<b.length()){
+                if(mp[b[i]] < mp[a[i]]) {
+                    cout<<i;
+                    return false;
+                }
+                else if(mp[b[i]]==mp[a[i]]){
+                    while(i<b.length() && i<a.length() && mp[b[i]]==mp[a[i]]){
+                        i++;
+                    }
+                    if(i==b.length() && i!=a.length()){
+                        return false;
+                    }
+                }
+                else{
+                    break;
+                }
+            }
+        }
+
+        return true;
+    }
+};
