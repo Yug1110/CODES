@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int numUniqueEmails(vector<string>& emails) {
+        set<string>s;
+
+        for(int x=0;x<emails.size();x++){
+            string str=emails[x];
+            int i=0;
+            string local="";
+            string domain="";
+            // finding local
+            while(i<str.length()){
+                if(str[i]=='@'){
+                    break;
+                }
+                else if(str[i]=='.'){
+                    i++;
+                }
+                else if(str[i]=='+'){
+                    i++;
+                    break;
+                }
+                else{
+                    local=local+str[i];
+                    i++;
+                }
+            }
+            while(i<str.length() && str[i]!='@'){
+                i++;
+            }
+            // finding domain
+            while(i<str.length()){
+                domain=domain+str[i];
+                i++;
+            }
+            string f=local+domain;
+            s.insert(f);
+        }
+        int n=s.size();
+        for(auto it:s){
+            cout<<it<<endl;
+        }
+        return n;
+    }
+};
