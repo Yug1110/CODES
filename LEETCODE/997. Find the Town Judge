@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int findJudge(int n, vector<vector<int>>& trust) {
+        if(n==1 && trust.size()==0) return 1;
+
+        unordered_map<int,vector<int>>mp;
+        for(int i=0;i<trust.size();i++){
+            mp[trust[i][1]].push_back(trust[i][0]);
+        }
+
+        for(auto it:mp){
+            cout<<it.first<<"->";
+            for(auto x:it.second){
+                cout<<x<<" ";
+            }
+            cout<<endl;
+            if(it.second.size() == n-1){
+                int check=0;
+                for(int i=0;i<trust.size();i++){
+                    if(trust[i][0]==it.first){
+                        check=1;
+                        break;
+                    }
+                }
+                if(check==0){
+                    return it.first;
+                }
+
+            }
+        }
+        return -1;
+    }
+};
