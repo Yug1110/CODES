@@ -1,0 +1,79 @@
+class Solution {
+public:
+    void position(vector<vector<char>>&board, int &row, int &col){
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                if(board[i][j]=='R'){
+                    row=i;
+                    col=j;
+                    
+                }
+            }
+        }
+    }
+    int numRookCaptures(vector<vector<char>>& board) {
+        int ans=0;
+        
+        // finding position of rook;
+        int row=0,col=0;
+        position(board, row, col);
+        
+        // checking upwards
+        int i=row;
+        int j=col;
+        while(i>=0){
+            if(board[i][j]=='p'){
+                ans++;
+                break;
+            }
+            if(board[i][j]=='B'){
+                break;
+            }
+            i--;
+        }
+
+        // checking downwards;
+        i=row;
+        j=col;
+        while(i<8){
+            if(board[i][j]=='p'){
+                ans++;
+                break;
+            }
+            if(board[i][j]=='B'){
+                break;
+            }
+            i++;
+        }
+
+        // checking right
+        i=row;
+        j=col;
+        while(j<8){
+            if(board[i][j]=='p'){
+                ans++;
+                break;
+            }
+            if(board[i][j]=='B'){
+                break;
+            }
+            j++;
+        }
+
+        // checking left
+        i=row;
+        j=col;
+        while(j>=0){
+            if(board[i][j]=='p'){
+                ans++;
+                break;
+            }
+            if(board[i][j]=='B'){
+                break;
+            }
+            j--;
+        }
+
+        return ans;
+    }
+};
