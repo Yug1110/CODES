@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<vector<int>> allCellsDistOrder(int rows, int cols, int rCenter, int cCenter) {
+        vector<vector<int>>ans;
+
+        queue<pair<int,int>>q;
+        q.push({rCenter,cCenter});
+        vector<vector<int>>vis(rows,vector<int>(cols,0));
+        vis[rCenter][cCenter]=1;
+        while(!q.empty()){
+            int row=q.front().first;
+            int col=q.front().second;
+            q.pop();
+
+            ans.push_back({row,col});
+
+            int nrow, ncol;
+
+            nrow=row-1;ncol=col;
+            if(nrow<rows && ncol<cols && nrow>=0 && ncol>=0 && !vis[nrow][ncol]){
+                vis[nrow][ncol]=1;
+                q.push({nrow,ncol});
+            }
+
+            nrow=row+1;ncol=col;
+            if(nrow<rows && ncol<cols && nrow>=0 && ncol>=0 && !vis[nrow][ncol]){
+                vis[nrow][ncol]=1;
+                q.push({nrow,ncol});
+            }
+
+            nrow=row;ncol=col-1;
+            if(nrow<rows && ncol<cols && nrow>=0 && ncol>=0 && !vis[nrow][ncol]){
+                vis[nrow][ncol]=1;
+                q.push({nrow,ncol});
+            }
+
+            nrow=row;ncol=col+1;
+            if(nrow<rows && ncol<cols && nrow>=0 && ncol>=0 && !vis[nrow][ncol]){
+                vis[nrow][ncol]=1;
+                q.push({nrow,ncol});
+            }
+        }
+
+        return ans;
+        
+    }
+};
