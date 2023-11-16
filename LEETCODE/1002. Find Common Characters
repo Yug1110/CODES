@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& words) {
+        int n=words.size();
+        vector<unordered_map<char,int>>v;
+        for(int x=0;x<n;x++){
+            unordered_map<char,int>mp;
+            for(int i=0;i<words[x].length();i++){
+                mp[words[x][i]]++;
+            }
+            v.push_back(mp);
+        }
+
+        vector<string>ans;
+        for(auto it:v[0]){
+            char curr=it.first;
+            int mini=it.second;
+            for(int x=1;x<n;x++){
+                mini=min(mini,v[x][curr]);
+            }
+            if(mini>0){
+                for(int j=0;j<mini;j++){
+                    ans.push_back(string(1, curr));
+                }
+            }
+        }
+
+        return ans;
+
+
+    }
+};
