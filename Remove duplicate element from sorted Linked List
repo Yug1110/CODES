@@ -1,0 +1,23 @@
+Node *removeDuplicates(Node *head)
+{
+ // your code goes here
+ if(!head || !head->next) return head;
+ 
+ unordered_set<int>st;
+ st.insert(head->data);
+ Node*prev=head;
+ Node*temp=head->next;
+ 
+ while(temp){
+     if(prev->data == temp->data){
+         prev->next=temp->next;
+         temp=temp->next;
+     }
+     else{
+         prev=temp;
+         temp=temp->next;
+     }
+ }
+ 
+ return head;
+}
