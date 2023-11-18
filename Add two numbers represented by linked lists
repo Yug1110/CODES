@@ -1,0 +1,105 @@
+class Solution
+{
+    public:
+    //Function to add two numbers represented by linked list.
+    
+    Node* reverse(struct Node *head)
+    {
+        // code here
+        // return head of reversed list
+        if(!head || !head->next){
+            return head;
+        }
+        
+         Node* prev=NULL;
+         Node*temp=head;
+         Node*next=head->next;
+        while(next){
+            temp->next=prev;
+            prev=temp;
+            temp=next;
+            next=next->next;
+        }
+        temp->next=prev;
+        return temp;
+    }
+    
+    
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+        // code here
+        first=reverse(first);
+        
+        second=reverse(second);
+        
+        Node*head=first;
+        int carry=0;
+        Node*last;
+        
+        while(first && second){
+            first->data+=second->data+carry;
+            if(first->data>=10){
+                first->data-=10;
+                carry=1;
+            }
+            else{
+                carry=0;
+            }
+            if(first->next==NULL || second->next==NULL){
+                last=first;
+            }
+            first=first->next;
+            second=second->next;
+        }
+        
+        if(first){
+            if(carry==1){
+                while(first){
+                    first->data+=carry;
+                    if(first->data>=10){
+                        first->data-=10;
+                        carry=1;
+                        if(first->next==NULL){
+                            first->next=new Node(1);
+                            break;
+                        }
+                    }
+                    else{
+                        carry=0;
+                        break;
+                    }
+                    first=first->next;
+                }
+            }      
+        }
+        
+        else if(second){
+            last->next=second;
+            if(carry==1){
+                while(second){
+                    second->data+=carry;
+                    if(second->data>=10){
+                        second->data-=10;
+                        carry=1;
+                        if(second->next==NULL){
+                            second->next=new Node(1);
+                            break;
+                        }
+                    }
+                    else{
+                        carry=0;
+                        break;
+                    }
+                    second=second->next;
+                }
+            }
+        }
+        else{
+            if(carry==1){
+                last->next=new Node(1);
+            }
+        }
+        head=reverse(head);
+        return head;
+    }
+};
