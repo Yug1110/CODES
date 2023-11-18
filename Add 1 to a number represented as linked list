@@ -1,0 +1,63 @@
+class Solution
+{
+    public:
+    struct Node* reverseList(struct Node *head)
+    {
+        // code here
+        // return head of reversed list
+        if(!head || !head->next) return head;
+        
+        struct Node* temp=head;
+        struct Node* next=head->next;
+        struct Node* prev=NULL;
+        
+        while(next){
+            temp->next=prev;
+            prev=temp;
+            temp=next;
+            next=next->next;
+        }
+        temp->next=prev;
+        return temp;
+    }
+    
+    
+    Node* addOne(Node *head) 
+    {
+        // Your Code here
+        // return head of list after adding one
+        head= reverseList(head);
+        //now adding one
+        int carry=1;
+        
+        Node* temp= head;
+        while(temp->next && carry){
+            temp->data+=carry;
+            if(temp->data == 10){
+                temp->data = 0;
+                carry=1;
+            }
+            else{
+                carry=0;
+            }
+            
+            
+            temp=temp->next;
+        }
+        
+        if(carry){
+            if(temp->data == 9){
+                temp->data=0;
+                temp->next = new Node(1);
+            }
+            else{
+                temp->data += 1;
+            }
+        }
+        
+        head=reverseList(head);
+        
+        return head;
+        
+    }
+};
