@@ -1,0 +1,48 @@
+class Solution
+{
+    public:
+    struct Node* reverseList(struct Node *head)
+    {
+        // code here
+        // return head of reversed list
+        if(!head || !head->next) return head;
+        
+        struct Node* temp=head;
+        struct Node* next=head->next;
+        struct Node* prev=NULL;
+        
+        while(next){
+            temp->next=prev;
+            prev=temp;
+            temp=next;
+            next=next->next;
+        }
+        temp->next=prev;
+        return temp;
+    }
+    
+    Node *compute(Node *head)
+    {
+        // your code goes here
+        head= reverseList(head);
+        
+        int maxi=-1e9;
+        Node* temp = head;
+        Node* prev=NULL;
+        while(temp){
+            maxi = max(maxi, temp->data);
+            if(temp->data < maxi){
+                prev->next=temp->next;
+                temp=temp->next;
+            }
+            else{
+                prev=temp;
+                temp=temp->next;
+            }
+        }
+        
+        return reverseList(head);
+        
+    }
+    
+};
