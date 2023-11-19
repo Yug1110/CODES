@@ -1,0 +1,72 @@
+Node* merge(Node* head, Node* next){
+        Node* res=NULL;
+        Node*temp=res;
+        while(true){
+            if(!head && !next) break;
+            if(!head){
+                if(res==NULL){
+                    res=next;
+                }
+                else{
+                    temp->bottom=next;
+                }
+                break;
+            }
+            if(!next){
+                if(res==NULL){
+                    res=head;
+                }
+                else{
+                    temp->bottom=head;
+                }
+                break;
+            }
+            
+            if(head->data <= next->data){
+                if(res==NULL){
+                    res=head;
+                    temp=res;
+                }
+                else{
+                    temp->bottom=head;
+                    temp=temp->bottom;
+                }
+                head=head->bottom;
+            }
+            else{
+                if(res==NULL){
+                    res=next;
+                    temp=res;
+                }
+                else{
+                    temp->bottom=next;
+                    temp=temp->bottom;
+                }
+                next=next->bottom;
+            }
+            
+            
+        }
+        
+        return res;
+    }
+
+
+Node *flatten(Node *root)
+{
+   // Your code here
+   if(!root || !root->next) return root;
+   
+   Node*temp=root->next;
+   root->next=NULL;
+   while(temp){
+       root=merge(root,temp);
+       Node*prev=temp;
+       temp=temp->next;
+       prev->next=NULL;
+   }
+   
+   return root;
+   
+   
+}
