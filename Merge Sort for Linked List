@@ -1,0 +1,88 @@
+class Solution{
+  public:
+    //Function to sort the given linked list using Merge Sort.
+    Node* getMid(Node* head){
+        Node*p=head;
+        Node*q=head;
+        
+        while(p && q){
+            if(!p->next || !p->next->next) return q;
+            p=p->next->next;
+            q=q->next;
+        }
+        
+        return q;
+    }
+    
+    Node* merge(Node* head, Node* next){
+        Node* res=NULL;
+        Node*temp=res;
+        while(true){
+            if(!head && !next) break;
+            if(!head){
+                if(res==NULL){
+                    res=next;
+                }
+                else{
+                    temp->next=next;
+                }
+                break;
+            }
+            if(!next){
+                if(res==NULL){
+                    res=head;
+                }
+                else{
+                    temp->next=head;
+                }
+                break;
+            }
+            
+            if(head->data <= next->data){
+                if(res==NULL){
+                    res=head;
+                    temp=res;
+                }
+                else{
+                    temp->next=head;
+                    temp=temp->next;
+                }
+                head=head->next;
+            }
+            else{
+                if(res==NULL){
+                    res=next;
+                    temp=res;
+                }
+                else{
+                    temp->next=next;
+                    temp=temp->next;
+                }
+                next=next->next;
+            }
+            
+            
+        }
+        
+        return res;
+    }
+    
+    Node* mergeSort(Node* head) {
+        // your code here
+        if(!head || !head->next) return head;
+        
+        //finding mid
+        Node* mid= getMid(head);
+        Node* next=mid->next;
+        
+        mid->next=NULL;
+        
+        head=mergeSort(head);
+        next=mergeSort(next);
+        
+        head = merge(head,next);
+        
+        return head;
+        
+    }
+};
