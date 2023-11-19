@@ -1,0 +1,29 @@
+void splitList(Node *head, Node **head1_ref, Node **head2_ref)
+{
+    // your code goes here
+        
+    Node*p=head;
+    Node*q=head;
+    Node*temp=head;
+    do{
+        if(temp->next==head){
+            temp->next=NULL;
+            break;
+        }
+        temp=temp->next;
+    }while(temp);
+    
+        
+    while(p){
+        if(!p->next || !p->next->next) break;
+        if(p->next)
+            p=p->next->next;
+        q=q->next;
+    }
+    
+    *head1_ref=head;
+    *head2_ref=q->next;
+    temp->next=q->next;
+    q->next=head;
+    
+}
