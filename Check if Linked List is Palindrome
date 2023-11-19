@@ -1,0 +1,69 @@
+class Solution{
+  public:
+    //Function to check whether the list is palindrome.
+    Node* getMiddle(Node *head)
+    {
+        // Your code here
+        if(!head || !head->next) return head;
+        
+        Node*p=head;
+        Node*q=head;
+        
+        while(p){
+            if(!p->next || !p->next->next) break;
+            if(p->next)
+                p=p->next->next;
+            q=q->next;
+        }
+        Node* ans=q->next;
+        q->next=NULL;
+        return ans;
+    }
+    
+    
+
+    
+    struct Node* reverseList(struct Node *head)
+    {
+        // code here
+        // return head of reversed list
+        if(!head || !head->next) return head;
+        
+        struct Node* temp=head;
+        struct Node* next=head->next;
+        struct Node* prev=NULL;
+        
+        while(next){
+            temp->next=prev;
+            prev=temp;
+            temp=next;
+            next=next->next;
+        }
+        temp->next=prev;
+        return temp;
+    }
+    
+    
+    
+    bool isPalindrome(Node *head)
+    {
+        //Your code here
+        
+        Node*head1=head;
+        Node*mid=getMiddle(head);
+        
+        mid= reverseList(mid);
+        
+        
+        while(head1 && mid){
+            if(head1->data != mid->data){
+                return false;
+            }
+            head1=head1->next;
+            mid=mid->next;
+        }
+        
+        
+        return true;
+    }
+};
